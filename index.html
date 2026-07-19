@@ -136,7 +136,7 @@
                 Equipe Lastro
               </div>
               <div style="font-family:'JetBrains Mono','Courier New',monospace; font-size:12px; color:#8A94A0; padding-top:7px;">
-                <a id="email" href="mailto:contato@lastro.com.br" style="color:#8A94A0; text-decoration:none;">contato@lastro.com.br</a>
+                <a id="email" href="mailto:lastro.estrategia@gmail.com" style="color:#8A94A0; text-decoration:none;">lastro.estrategia@gmail.com</a>
               </div>
             </td>
           </tr>
@@ -164,7 +164,7 @@
     /* ================= EDITE UMA VEZ ================= */
     var CONFIG = {
       LINK_DOWNLOAD: "COLE_AQUI_O_LINK_DO_DIAGNOSTICO",   /* ex.: link do coleta_baseline */
-      EMAIL: "contato@lastro.com.br"
+      EMAIL: "lastro.estrategia@gmail.com"
     };
     /* ================================================= */
 
@@ -190,9 +190,10 @@
       var p1 = document.getElementById('p1');
       if(p1){ p1.textContent = nome + ", estamos começando."; }
     }
-    if(codigo){
-      var cel = document.getElementById('codigo');
-      if(cel){ cel.textContent = codigo; }
+    var cel = document.getElementById('codigo');
+    if(cel){
+      if(codigo){ cel.textContent = codigo; }
+      else if(nome && fund){ cel.textContent = nome + "-FUND-" + fund; }
     }
     if(fund){
       var fe = document.getElementById('fund');
