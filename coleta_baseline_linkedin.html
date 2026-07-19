@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lastro · Coleta de Baseline — LinkedIn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#00CBCF; --verde-fundo:#01868D; --verde-veu:#E0F7F8;
+  --tinta:#10171A; --tinta-media:#4A5561; --tinta-clara:#8A94A0;
+  --papel:#F4F6F5; --card:#FFFFFF; --regua:#DCE0DA;
+  --ambar:#9A5B12; --ambar-veu:#FBF0E2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--papel);color:var(--tinta);font-family:'Inter',system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:104px}
+
+header{background:var(--tinta);color:#fff;padding:30px 24px 26px}
+.hwrap{max-width:920px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brand .mark{height:38px;width:auto;display:block;flex:none}
+.brand .word{font-family:'Inter';font-weight:600;font-size:19px;letter-spacing:4px}
+.slogan{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.slogan .s1{color:#fff}.slogan .div{color:var(--verde);margin:0 6px}.slogan .s2{color:var(--verde)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);margin-bottom:12px}
+h1{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:clamp(24px,4.5vw,34px);line-height:1.15;letter-spacing:-.02em;margin-bottom:12px}
+.lede{color:#C6CDD4;font-size:14.5px;max-width:64ch}
+.lede strong{color:#fff;font-weight:600}
+.hmeta{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6B7680;margin-top:16px;padding-top:14px;border-top:1px solid #2A3238;display:flex;gap:18px;flex-wrap:wrap}
+
+main{max-width:920px;margin:0 auto;padding:0 24px}
+section{margin-top:44px}
+.shead{display:flex;align-items:baseline;gap:14px;padding-bottom:11px;border-bottom:2px solid var(--tinta)}
+.snum{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:var(--verde-fundo)}
+.stitle{font-family:'Source Serif 4',serif;font-weight:600;font-size:20px;letter-spacing:-.01em}
+.snote{color:var(--tinta-media);font-size:13.5px;margin-top:12px;max-width:66ch}
+.snote strong{color:var(--tinta)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.grid.tri{grid-template-columns:1fr 1fr 1fr}
+.f{background:var(--card);border:1px solid var(--regua);border-radius:3px;padding:12px 14px}
+.f:focus-within{border-color:var(--verde-fundo);box-shadow:0 0 0 3px var(--verde-veu)}
+.f.wide{grid-column:1/-1}
+.f label{display:block;font-size:12.5px;font-weight:600;color:var(--tinta);margin-bottom:6px}
+.f .sub{display:block;font-size:11px;color:var(--tinta-clara);margin:-3px 0 7px;font-weight:400}
+.f input,.f select,.f textarea{width:100%;border:none;outline:none;background:transparent;font-family:'Inter';font-size:14px;color:var(--tinta)}
+.f textarea{resize:vertical;line-height:1.55}
+.f.num input{font-family:'JetBrains Mono',monospace}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238A94A0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{position:relative;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--regua);border-radius:999px;padding:8px 14px;cursor:pointer;font-size:13px;color:var(--tinta-media);background:var(--card);user-select:none;transition:all .15s}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip .tick{width:14px;height:14px;border:1.5px solid var(--tinta-clara);border-radius:50%;flex:none;display:grid;place-items:center;transition:all .15s}
+.chip.on{border-color:var(--verde-fundo);color:var(--tinta);background:var(--verde-veu)}
+.chip.on .tick{border-color:var(--verde-fundo);background:var(--verde-fundo)}
+.chip.on .tick::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+
+.item{background:var(--card);border:1px solid var(--regua);border-radius:4px;margin-top:16px;overflow:hidden}
+.itop{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#FAFBFA;border-bottom:1px solid var(--regua)}
+.pn{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:var(--tinta)}
+.pn .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--regua);margin-right:7px;vertical-align:middle}
+.item.filled .pn .dot{background:var(--verde)}
+.iremove{margin-left:auto;font-family:'Inter';font-size:12px;color:var(--tinta-clara);background:none;border:1px solid var(--regua);border-radius:2px;padding:4px 9px;cursor:pointer}
+.iremove:hover{border-color:var(--ambar);color:var(--ambar)}
+.ibody{padding:16px}
+.subh{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-clara);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--regua)}
+.subh:first-child{margin-top:0}
+.pgrid{display:grid;gap:10px}
+.pg2{grid-template-columns:1fr 1fr}
+.pg3{grid-template-columns:1fr 1fr 1fr}
+.pg4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+.leitura{margin-top:14px;padding:12px 14px;background:var(--tinta);border-radius:3px;display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:10px}
+.li{text-align:center}
+.li .lk{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#8A94A0;margin-bottom:3px}
+.li .lv{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--verde)}
+.li .lv.warn{color:#FFB454}
+.alerta{margin-top:10px;padding:8px 12px;background:var(--ambar-veu);border-left:3px solid var(--ambar);border-radius:2px;font-size:12px;color:#6B3F0A;display:none}
+.alerta.on{display:block}
+
+.addbtn{margin-top:16px;width:100%;padding:12px;background:transparent;border:1px dashed var(--regua);border-radius:3px;font-family:'Inter';font-size:13.5px;font-weight:600;color:var(--verde-fundo);cursor:pointer}
+.addbtn:hover{border-color:var(--verde-fundo);background:var(--verde-veu)}
+
+.bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--regua);padding:12px 24px;z-index:20;box-shadow:0 -1px 14px rgba(16,23,26,.06)}
+.barwrap{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.prog{flex:1;min-width:160px}
+.progtop{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tinta-clara);margin-bottom:5px}
+.savedtag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--verde-fundo);margin-left:9px;opacity:0;transition:opacity .3s}
+.savedtag.on{opacity:1}
+.track{height:3px;background:var(--regua);border-radius:2px;overflow:hidden}
+.fill{height:100%;width:0%;background:var(--verde);transition:width .3s ease}
+button.act{font-family:'Inter';font-weight:600;font-size:14px;padding:11px 18px;border-radius:2px;cursor:pointer;border:1px solid var(--tinta);background:var(--tinta);color:#fff}
+button.act:hover{background:#000}
+button.ghost{background:transparent;color:var(--tinta);border-color:var(--regua)}
+button.ghost:hover{border-color:var(--tinta)}
+.toast{position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--tinta);color:#fff;padding:11px 20px;border-radius:3px;font-size:14px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:30;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{max-width:920px;margin:48px auto 0;padding:22px 24px;border-top:1px solid var(--regua)}
+footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tinta-clara);line-height:1.9}
+
+@media(max-width:720px){
+  header{padding:24px 18px}
+  main{padding:0 16px}
+  .grid,.grid.tri{grid-template-columns:1fr}
+  .pg2,.pg3,.pg4{grid-template-columns:1fr 1fr}
+  .leitura{grid-template-columns:1fr 1fr}
+  .slogan{font-size:9px;letter-spacing:1px}
+  button.act{flex:1;padding:11px 10px;font-size:13px}
+  .itop{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <img class="mark" alt="LASTRO" src="data:image/png;base64,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">
+      <div>
+        <div class="word">LASTRO</div>
+      </div>
+    </div>
+    <div class="eyebrow">Coleta de Baseline · LinkedIn</div>
+    <h1>Vamos ler o seu LinkedIn de verdade</h1>
+    <p class="lede">Aqui o seu perfil é o <strong>funil</strong>: a headline, o Sobre e as experiências convertem quem chega — e cada post é o que traz gente até lá. Preencha o que o LinkedIn <strong>mostra</strong> (perfil e analytics), não o que você lembra. E responda o <strong>objetivo</strong>: é ele que define o que vamos medir. No fim você baixa o arquivo e decide quando enviar — nada sai daqui sozinho.</p>
+    <div class="hmeta"><span>10 partes</span><span>~15 min</span><span>Salva sozinho neste aparelho</span></div>
+  </div>
+</header>
+
+<main>
+
+<!-- 01 · OBJETIVO -->
+<section>
+  <div class="shead"><span class="snum">01</span><span class="stitle">Objetivo &amp; Norte</span></div>
+  <p class="snote">Isto decide o que vamos medir. No LinkedIn não existe "métrica boa" universal: o que conta como vitória para quem busca <strong>recolocação</strong> é diferente de quem quer <strong>autoridade</strong>. Diga o alvo — o resto do trabalho se organiza em volta dele.</p>
+  <div class="grid">
+    <div class="f wide"><label>Qual é o seu objetivo principal nos próximos meses?</label>
+      <select data-k="objetivo_principal" data-sec="objetivo">
+        <option value="">—</option>
+        <option>Recolocação em vaga de liderança (Coord./Gerência)</option>
+        <option>Promoção interna na empresa atual</option>
+        <option>Mudança de área ou de setor</option>
+        <option>Virar autoridade/referência técnica (Top Voice, palestras)</option>
+        <option>Gerar clientes / consultoria / negócio próprio</option>
+        <option>Outro</option>
+      </select>
+    </div>
+    <div class="f"><label>Cargo ou nível-alvo</label><span class="sub">onde você quer chegar</span><input data-k="cargo_alvo" data-sec="objetivo" placeholder="Ex.: Coordenador de FP&A"></div>
+    <div class="f"><label>Horizonte</label><select data-k="horizonte" data-sec="objetivo"><option value="">—</option><option>3 meses</option><option>6 meses</option><option>12 meses</option></select></div>
+    <div class="f wide"><label>Se em 3 meses UMA coisa acontecesse e você ficasse satisfeito, qual seria?</label><span class="sub">esta resposta é a sua métrica-norte — seja concreto</span><textarea data-k="vitoria_3m" data-sec="objetivo" rows="3" placeholder="Ex.: três recrutadores de peso me chamando para conversar sobre vagas de liderança"></textarea></div>
+    <div class="f wide"><label>Quem precisa te enxergar para isso acontecer?</label><span class="sub">marque todos que valem</span>
+      <div class="chips" data-multi="publico_alvo" data-sec="objetivo">
+        <label class="chip"><input type="checkbox" value="Recrutadores / headhunters"><span class="tick"></span>Recrutadores / headhunters</label>
+        <label class="chip"><input type="checkbox" value="C-level / diretoria"><span class="tick"></span>C-level / diretoria</label>
+        <label class="chip"><input type="checkbox" value="Pares do setor"><span class="tick"></span>Pares do setor</label>
+        <label class="chip"><input type="checkbox" value="Liderança da empresa atual"><span class="tick"></span>Liderança da empresa atual</label>
+        <label class="chip"><input type="checkbox" value="Potenciais clientes"><span class="tick"></span>Potenciais clientes</label>
+        <label class="chip"><input type="checkbox" value="Comunidade / futuros mentorados"><span class="tick"></span>Comunidade / mentorados</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · IDENTIDADE -->
+<section>
+  <div class="shead"><span class="snum">02</span><span class="stitle">O perfil hoje</span></div>
+  <p class="snote">A moldura do seu perfil. A <strong>headline</strong> é o imóvel mais valioso do LinkedIn — aparece em busca, comentário e convite. Cole-a exatamente como está.</p>
+  <div class="grid">
+    <div class="f"><label>Seu nome</label><input data-k="nome" data-sec="perfil" placeholder="Nome completo"></div>
+    <div class="f"><label>Localização</label><input data-k="localizacao" data-sec="perfil" placeholder="Ex.: São Paulo e Região"></div>
+    <div class="f wide"><label>Headline</label><span class="sub">a linha logo abaixo do seu nome, tal como está</span><textarea data-k="headline" data-sec="perfil" rows="2" placeholder="Cole aqui a sua headline"></textarea></div>
+    <div class="f num"><label>Nº de seguidores</label><input data-k="seguidores" data-sec="perfil" inputmode="numeric" placeholder="Ex.: 2770"></div>
+    <div class="f"><label>Nº de conexões</label><input data-k="conexoes" data-sec="perfil" placeholder="Ex.: +500"></div>
+    <div class="f"><label>Perfil verificado?</label><select data-k="verificado" data-sec="perfil"><option value="">—</option><option>Sim</option><option>Não</option></select></div>
+    <div class="f"><label>Foto profissional?</label><select data-k="foto_pro" data-sec="perfil"><option value="">—</option><option>Sim</option><option>Não</option><option>Preciso melhorar</option></select></div>
+    <div class="f"><label>Banner personalizado?</label><select data-k="banner" data-sec="perfil"><option value="">—</option><option>Sim, meu</option><option>Padrão da empresa</option><option>Nenhum</option></select></div>
+    <div class="f"><label>"Buscando emprego" ligado?</label><select data-k="buscando_emprego" data-sec="perfil"><option value="">—</option><option>Sim, público</option><option>Sim, só recrutadores</option><option>Não</option></select></div>
+    <div class="f wide"><label>Se busca: cargos declarados</label><span class="sub">o que aparece no painel "buscando emprego"</span><input data-k="cargos_buscados" data-sec="perfil" placeholder="Ex.: Coordenador · Especialista"></div>
+  </div>
+</section>
+
+<!-- 03 · SOBRE -->
+<section>
+  <div class="shead"><span class="snum">03</span><span class="stitle">Seção "Sobre"</span></div>
+  <p class="snote">O texto que conta a sua história. Cole <strong>na íntegra</strong>, do jeito que está publicado — mesmo que ache que precisa melhorar. É a matéria-prima do reposicionamento.</p>
+  <div class="grid">
+    <div class="f wide"><label>Texto do "Sobre"</label><textarea data-k="sobre" data-sec="perfil" rows="8" placeholder="Cole aqui o seu Sobre completo"></textarea></div>
+  </div>
+</section>
+
+<!-- 04 · EM DESTAQUE -->
+<section>
+  <div class="shead"><span class="snum">04</span><span class="stitle">Em destaque (Featured)</span></div>
+  <p class="snote">Os itens fixados logo abaixo do Sobre — seus melhores ativos de prova. Se não tiver nenhum, pule; a ausência já é um achado.</p>
+  <div data-group="destaques"></div>
+  <button class="addbtn" data-add="destaques" type="button">+ Adicionar destaque</button>
+</section>
+
+<!-- 05 · EXPERIÊNCIAS -->
+<section>
+  <div class="shead"><span class="snum">05</span><span class="stitle">Experiências</span></div>
+  <p class="snote">Sua trajetória. Comece pela <strong>atual</strong> e vá voltando. A descrição de cada cargo é onde mora a sua autoridade — traga como está.</p>
+  <div data-group="experiencias"></div>
+  <button class="addbtn" data-add="experiencias" type="button">+ Adicionar experiência</button>
+</section>
+
+<!-- 06 · FORMAÇÃO -->
+<section>
+  <div class="shead"><span class="snum">06</span><span class="stitle">Formação acadêmica</span></div>
+  <p class="snote">Graduação, pós, MBA, técnico. O essencial de cada uma.</p>
+  <div data-group="formacao"></div>
+  <button class="addbtn" data-add="formacao" type="button">+ Adicionar formação</button>
+</section>
+
+<!-- 07 · CERTIFICADOS -->
+<section>
+  <div class="shead"><span class="snum">07</span><span class="stitle">Licenças &amp; certificados</span></div>
+  <p class="snote">Cursos, credenciais, certificações. Traga os que reforçam o objetivo — não precisa listar todos se forem muitos.</p>
+  <div data-group="certificados"></div>
+  <button class="addbtn" data-add="certificados" type="button">+ Adicionar certificado</button>
+</section>
+
+<!-- 08 · COMPETÊNCIAS + PROVA SOCIAL -->
+<section>
+  <div class="shead"><span class="snum">08</span><span class="stitle">Competências &amp; prova social</span></div>
+  <p class="snote">As competências são palavras-chave de busca. As recomendações são a sua <strong>prova social</strong> — no LinkedIn, quem fala por você pesa mais do que o que você fala de si.</p>
+  <div class="grid">
+    <div class="f wide"><label>Competências</label><span class="sub">cole a lista, separada por vírgula</span><textarea data-k="competencias" data-sec="root" rows="3" placeholder="Ex.: OBZ, Modelagem Financeira, RAROC, SQL/VBA, Análise de dados…"></textarea></div>
+    <div class="f num"><label>Recomendações recebidas</label><input data-k="recomendacoes_recebidas" data-sec="prova_social" inputmode="numeric" placeholder="Ex.: 0"></div>
+    <div class="f num"><label>Recomendações fornecidas</label><input data-k="recomendacoes_fornecidas" data-sec="prova_social" inputmode="numeric" placeholder="Ex.: 2"></div>
+    <div class="f"><label>Tem depoimento forte que dá pra pedir?</label><select data-k="tem_depoimento" data-sec="prova_social"><option value="">—</option><option>Sim, chefe/liderança</option><option>Sim, par/cliente</option><option>Não tenho a quem pedir</option></select></div>
+  </div>
+</section>
+
+<!-- 09 · DESEMPENHO -->
+<section>
+  <div class="shead"><span class="snum">09</span><span class="stitle">Desempenho</span></div>
+  <p class="snote">Aqui a régua é o <strong>analytics</strong>, não a memória. Primeiro a visão geral da conta; depois, um bloco por post recente — abra "Ver análise" em cada um e copie. A caixa escura calcula o funil sozinha (engajamento → visita ao perfil) e avisa quando um número não fecha.</p>
+
+  <div class="subh" style="margin-top:20px">Visão geral</div>
+  <div class="grid">
+    <div class="f num"><label>Impressões (últimos 7 dias)</label><input data-k="impressoes_7d" data-sec="overview" inputmode="numeric"></div>
+    <div class="f num"><label>Visitas ao perfil (90 dias)</label><input data-k="visitas_perfil_90d" data-sec="overview" inputmode="numeric"></div>
+    <div class="f num"><label>Ocorrências em pesquisa (semana)</label><input data-k="ocorrencias_busca" data-sec="overview" inputmode="numeric"></div>
+    <div class="f"><label>Cadência atual de publicação</label><select data-k="cadencia" data-sec="overview"><option value="">—</option><option>Não publico</option><option>Menos de 1×/mês</option><option>~1×/semana</option><option>2–3×/semana</option><option>Quase diário</option></select></div>
+  </div>
+
+  <div class="subh" style="margin-top:22px">Audiência — quem vê seu conteúdo</div>
+  <p class="snote" style="margin-top:8px">O painel "Principais dados demográficos" mostra <strong>quem</strong> o algoritmo está te entregando. Para carreira ou autoridade, isto pesa tanto quanto o volume: adianta pouco alcançar muita gente se não for a gente certa. E o corte <strong>na rede × fora da rede</strong> é o detector de bolha — quanto maior o "fora da rede", mais você está escapando do próprio círculo. Preencha com o valor dominante de cada recorte e seu %. Em posts com mais de 360 dias o LinkedIn não mostra mais a demografia — se for o caso, deixe vazio.</p>
+  <div class="grid">
+    <div class="f num"><label>Na rede (%)</label><span class="sub">seguidores e conexões</span><input data-k="na_rede" data-sec="overview" inputmode="decimal" placeholder="Ex.: 78"></div>
+    <div class="f num"><label>Fora da rede (%)</label><input data-k="fora_rede" data-sec="overview" inputmode="decimal" placeholder="Ex.: 22"></div>
+    <div class="f"><label>Nível de experiência dominante</label><input data-k="aud_nivel" data-sec="overview" placeholder="Ex.: Sênior"></div>
+    <div class="f num"><label>Nível — %</label><input data-k="aud_nivel_pct" data-sec="overview" inputmode="decimal"></div>
+    <div class="f"><label>Setor dominante</label><input data-k="aud_setor" data-sec="overview" placeholder="Ex.: Serviços financeiros"></div>
+    <div class="f num"><label>Setor — %</label><input data-k="aud_setor_pct" data-sec="overview" inputmode="decimal"></div>
+    <div class="f"><label>Cargo dominante</label><input data-k="aud_cargo" data-sec="overview" placeholder="Ex.: Analista financeiro"></div>
+    <div class="f num"><label>Cargo — %</label><input data-k="aud_cargo_pct" data-sec="overview" inputmode="decimal"></div>
+    <div class="f"><label>Localidade dominante</label><input data-k="aud_localidade" data-sec="overview" placeholder="Ex.: São Paulo e Região"></div>
+    <div class="f num"><label>Localidade — %</label><input data-k="aud_localidade_pct" data-sec="overview" inputmode="decimal"></div>
+    <div class="f"><label>Empresa dominante</label><input data-k="aud_empresa" data-sec="overview" placeholder="Ex.: Itaú Unibanco"></div>
+    <div class="f num"><label>Empresa — %</label><input data-k="aud_empresa_pct" data-sec="overview" inputmode="decimal"></div>
+    <div class="f"><label>Tamanho de empresa dominante</label><input data-k="aud_tamanho" data-sec="overview" placeholder="Ex.: +10.001 funcionários"></div>
+    <div class="f num"><label>Tamanho — %</label><input data-k="aud_tamanho_pct" data-sec="overview" inputmode="decimal"></div>
+  </div>
+
+  <div class="subh" style="margin-top:22px">Posts recentes</div>
+  <div data-group="posts"></div>
+  <button class="addbtn" data-add="posts" type="button">+ Adicionar post</button>
+</section>
+
+<!-- 10 · COMPLIANCE -->
+<section>
+  <div class="shead"><span class="snum">10</span><span class="stitle">Triagem de risco &amp; compliance</span></div>
+  <p class="snote">O passo que protege você. Muitas profissões publicam sob regras — do conselho da categoria, do empregador ou de cláusulas de contrato. Isto define o que pode e o que não pode virar conteúdo, <strong>antes</strong> de escrevermos qualquer coisa. Se nada disso se aplica, marque e siga.</p>
+  <div class="grid">
+    <div class="f"><label>É uma profissão com conselho ou órgão regulador?</label><select data-k="area_regulada" data-sec="compliance"><option value="">—</option><option>Sim</option><option>Não</option><option>Não sei</option></select></div>
+    <div class="f"><label>Qual conselho/regulador? (se houver)</label><span class="sub">ex.: OAB, CRM, CREA, CRC, CRP, COREN, CVM, ANBIMA…</span><input data-k="qual_regulador" data-sec="compliance" placeholder="Nome do conselho ou órgão"></div>
+    <div class="f"><label>Você tem esse registro/certificação?</label><select data-k="tem_registro" data-sec="compliance"><option value="">—</option><option>Sim</option><option>Não</option><option>Em processo</option><option>Não se aplica</option></select></div>
+    <div class="f"><label>Seu empregador tem política de mídia social?</label><select data-k="politica_empregador" data-sec="compliance"><option value="">—</option><option>Sim, restritiva</option><option>Sim, permissiva</option><option>Não tem</option><option>Não sei</option></select></div>
+    <div class="f"><label>Pode citar o nome do empregador em posts?</label><select data-k="pode_citar_empregador" data-sec="compliance"><option value="">—</option><option>Sim</option><option>Sim, com cautela</option><option>Não</option><option>Não sei</option></select></div>
+    <div class="f"><label>Pode usar dados/casos do trabalho?</label><select data-k="usar_dados_trabalho" data-sec="compliance"><option value="">—</option><option>Sim, dado público</option><option>Só anonimizado</option><option>Não</option><option>Não sei</option></select></div>
+    <div class="f wide"><label>Alguma cláusula, conflito de interesse ou tema proibido?</label><span class="sub">prometer resultado, recomendar algo proibido, expor cliente/paciente/terceiro, falar de concorrente… o que você já sabe que não pode</span><textarea data-k="conflito" data-sec="compliance" rows="2" placeholder="Descreva, ou escreva 'nenhum'"></textarea></div>
+  </div>
+</section>
+
+<footer>
+  <p>Ao terminar, toque em <strong>Baixar dados</strong> e envie o arquivo. Se o download não funcionar, use <strong>Copiar tudo</strong>.<br>
+  Nada é enviado automaticamente — o arquivo fica com você até decidir mandar.<br><br>
+  LASTRO · Estrutura que sustenta. Estratégia que escala.</p>
+</footer>
+
+</main>
+
+<div class="bar">
+  <div class="barwrap">
+    <div class="prog">
+      <div class="progtop"><span><span id="plabel">Preencha as 10 partes</span><span id="saved" class="savedtag"></span></span><span id="ppost">0 posts</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+    <button class="act ghost" id="clear" type="button">Limpar</button>
+    <button class="act ghost" id="copy" type="button">Copiar tudo</button>
+    <button class="act" id="down" type="button">Baixar dados</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- TEMPLATES -->
+<template id="tpl-destaques">
+<div class="item">
+  <div class="itop"><span class="pn"><span class="dot"></span>DESTAQUE <span class="idx"></span></span><button class="iremove" type="button">Remover</button></div>
+  <div class="ibody">
+    <div class="pgrid pg3">
+      <div class="f"><label>Tipo</label><select data-f="tipo"><option value="">—</option><option>Link/site</option><option>Post</option><option>Mídia/documento</option><option>Newsletter</option></select></div>
+      <div class="f" style="grid-column:span 2"><label>Título</label><input data-f="titulo" placeholder="Ex.: Dashboard Interativo — Performance dos 5 maiores bancos"></div>
+    </div>
+    <div class="pgrid" style="margin-top:10px"><div class="f wide"><label>O que é / por que importa</label><input data-f="descricao" placeholder="Ex.: painel econométrico com dados públicos auditáveis"></div></div>
+  </div>
+</div>
+</template>
+
+<template id="tpl-experiencias">
+<div class="item">
+  <div class="itop"><span class="pn"><span class="dot"></span>EXPERIÊNCIA <span class="idx"></span></span><button class="iremove" type="button">Remover</button></div>
+  <div class="ibody">
+    <div class="pgrid pg2">
+      <div class="f"><label>Cargo</label><input data-f="cargo" placeholder="Ex.: Analista de finanças | FP&A"></div>
+      <div class="f"><label>Empresa</label><input data-f="empresa" placeholder="Ex.: Itaú Unibanco"></div>
+    </div>
+    <div class="pgrid pg3" style="margin-top:10px">
+      <div class="f"><label>Período</label><input data-f="periodo" placeholder="Ex.: abr/2023 – atual"></div>
+      <div class="f"><label>Vínculo</label><select data-f="vinculo"><option value="">—</option><option>Tempo integral</option><option>Meio período</option><option>Contrato</option><option>Freelance</option></select></div>
+      <div class="f"><label>Local</label><select data-f="local"><option value="">—</option><option>Presencial</option><option>Híbrido</option><option>Remoto</option></select></div>
+    </div>
+    <div class="pgrid" style="margin-top:10px"><div class="f wide"><label>Descrição</label><span class="sub">cole os bullets como estão no perfil</span><textarea data-f="descricao" rows="4" placeholder="— O que você fez e entregou nesse cargo"></textarea></div></div>
+  </div>
+</div>
+</template>
+
+<template id="tpl-formacao">
+<div class="item">
+  <div class="itop"><span class="pn"><span class="dot"></span>FORMAÇÃO <span class="idx"></span></span><button class="iremove" type="button">Remover</button></div>
+  <div class="ibody">
+    <div class="pgrid pg2">
+      <div class="f"><label>Instituição</label><input data-f="instituicao" placeholder="Ex.: MBA USP/Esalq"></div>
+      <div class="f"><label>Grau</label><input data-f="grau" placeholder="Ex.: MBA · Pós · Bacharelado · Técnico"></div>
+    </div>
+    <div class="pgrid pg2" style="margin-top:10px">
+      <div class="f"><label>Área</label><input data-f="area" placeholder="Ex.: Finanças e Controladoria"></div>
+      <div class="f"><label>Período</label><input data-f="periodo" placeholder="Ex.: 2022 – 2024"></div>
+    </div>
+  </div>
+</div>
+</template>
+
+<template id="tpl-certificados">
+<div class="item">
+  <div class="itop"><span class="pn"><span class="dot"></span>CERTIFICADO <span class="idx"></span></span><button class="iremove" type="button">Remover</button></div>
+  <div class="ibody">
+    <div class="pgrid pg2">
+      <div class="f"><label>Nome</label><input data-f="nome" placeholder="Ex.: Valuation e Interpretação do Valor de Ações"></div>
+      <div class="f"><label>Emissor</label><input data-f="emissor" placeholder="Ex.: ESALQ"></div>
+    </div>
+    <div class="pgrid pg2" style="margin-top:10px">
+      <div class="f"><label>Data</label><input data-f="data" placeholder="Ex.: out/2025"></div>
+      <div class="f"><label>Competências ligadas</label><input data-f="competencias" placeholder="Ex.: Modelagem, RAROC, EVA"></div>
+    </div>
+  </div>
+</div>
+</template>
+
+<template id="tpl-posts">
+<div class="item post">
+  <div class="itop"><span class="pn"><span class="dot"></span>POST <span class="idx"></span></span><button class="iremove" type="button">Remover</button></div>
+  <div class="ibody">
+    <div class="subh">Identificação</div>
+    <div class="pgrid pg3">
+      <div class="f"><label>Quando foi publicado?</label><span class="sub">copie como o LinkedIn mostra: "há 4 semanas", "há 1 mês"</span><input data-f="data" placeholder="Ex.: há 4 semanas"></div>
+      <div class="f"><label>Formato</label><select data-f="formato"><option value="">—</option><option>Texto</option><option>Texto + imagem</option><option>Texto + vídeo</option><option>Carrossel/documento</option><option>Artigo</option><option>Enquete</option></select></div>
+      <div class="f"><label>Tema (o assunto real)</label><input data-f="tema" placeholder="Ex.: eficiência bancária vs. rentabilidade"></div>
+    </div>
+    <div class="pgrid" style="margin-top:10px">
+      <div class="f wide"><label>Texto da publicação</label><span class="sub">cole o post na íntegra — é a matéria-prima da sua voz e do que engaja</span><textarea data-f="texto" rows="4" placeholder="Cole aqui o texto do post, como foi publicado"></textarea></div>
+    </div>
+
+    <div class="subh">Alcance</div>
+    <div class="pgrid pg2">
+      <div class="f num"><label>Impressões</label><input data-f="impressoes" inputmode="numeric"></div>
+      <div class="f num"><label>Usuários alcançados</label><span class="sub">pessoas únicas · deixe vazio se o post não mostrar</span><input data-f="alcance" inputmode="numeric"></div>
+    </div>
+
+    <div class="subh">Engajamento</div>
+    <div class="pgrid pg3">
+      <div class="f num"><label>Reações</label><input data-f="reacoes" inputmode="numeric"></div>
+      <div class="f num"><label>Comentários</label><input data-f="comentarios" inputmode="numeric"></div>
+      <div class="f num"><label>Compartilhamentos</label><input data-f="compart" inputmode="numeric"></div>
+    </div>
+    <div class="pgrid pg2" style="margin-top:10px">
+      <div class="f num"><label>Salvamentos</label><input data-f="salv" inputmode="numeric"></div>
+      <div class="f num"><label>Envios no LinkedIn</label><input data-f="envios" inputmode="numeric"></div>
+    </div>
+
+    <div class="subh">Conversão de perfil</div>
+    <div class="pgrid pg2">
+      <div class="f num"><label>Visitas ao perfil geradas</label><input data-f="visitas_perfil" inputmode="numeric"></div>
+      <div class="f num"><label>Seguidores obtidos</label><input data-f="seguidores_obtidos" inputmode="numeric"></div>
+    </div>
+
+    <div class="subh">Vídeo — só se o post for vídeo</div>
+    <div class="pgrid pg3">
+      <div class="f num"><label>Visualizações de vídeo</label><input data-f="video_views" inputmode="numeric"></div>
+      <div class="f num"><label>Tempo médio (seg)</label><span class="sub">ex.: 11</span><input data-f="video_avg" inputmode="numeric"></div>
+      <div class="f num"><label>Duração do vídeo (seg)</label><span class="sub">pra calcular retenção</span><input data-f="video_dur" inputmode="numeric"></div>
+    </div>
+
+    <div class="leitura">
+      <div class="li"><div class="lk">Engajamento</div><div class="lv" data-o="eng">—</div></div>
+      <div class="li"><div class="lk">Convers. perfil</div><div class="lv" data-o="conv">—</div></div>
+      <div class="li"><div class="lk">Alcance ÷ seg.</div><div class="lv" data-o="alcseg">—</div></div>
+      <div class="li"><div class="lk">Comentários</div><div class="lv" data-o="com">—</div></div>
+      <div class="li"><div class="lk">Retenção vídeo</div><div class="lv" data-o="ret">—</div></div>
+    </div>
+    <div class="alerta" data-o="alerta"></div>
+  </div>
+</div>
+</template>
+
+<script>
+(function(){
+  var toastEl=document.getElementById('toast'), tt;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('show')},3400)}
+  function num(v){v=parseFloat((v||'').toString().replace(',','.'));return isNaN(v)?null:v}
+  function seguidores(){return num((document.querySelector('[data-k=seguidores]')||{}).value)}
+
+  var GROUPS=['destaques','experiencias','formacao','certificados','posts'];
+  function container(g){return document.querySelector('[data-group='+g+']')}
+
+  // chips (multi-select)
+  document.querySelectorAll('.chip input').forEach(function(inp){
+    inp.addEventListener('change',function(){ inp.closest('.chip').classList.toggle('on',inp.checked); refresh(); scheduleSave(); });
+  });
+
+  function calcPost(card){
+    var g=function(k){return card.querySelector('[data-f='+k+']')};
+    var imp=num(g('impressoes').value), alc=num(g('alcance').value);
+    var reac=num(g('reacoes').value)||0, com=num(g('comentarios').value)||0, comp=num(g('compart').value)||0;
+    var salv=num(g('salv').value)||0, env=num(g('envios').value)||0, vis=num(g('visitas_perfil').value)||0;
+    var seg=seguidores();
+    var o=function(k){return card.querySelector('[data-o='+k+']')};
+
+    var interacoes=reac+com+comp+salv+env;
+    var eng = imp? (interacoes/imp*100) : null;
+    o('eng').textContent = eng!=null? eng.toFixed(1)+'%' : '—';
+
+    var conv = imp? (vis/imp*100) : null;
+    o('conv').textContent = conv!=null? conv.toFixed(1)+'%' : '—';
+
+    var as = (alc!=null&&seg)? (alc/seg) : null;
+    var asEl=o('alcseg'); asEl.textContent = as!=null? as.toFixed(2)+'x' : '—';
+    asEl.classList.toggle('warn', as!=null && as<1);
+
+    var comEl=o('com'); comEl.textContent = (com||com===0)? String(com) : '—';
+    comEl.classList.toggle('warn', imp!=null && imp>0 && com===0);
+
+    var vavg=num(g('video_avg').value), vdur=num(g('video_dur').value);
+    var ret=(vavg!=null&&vdur)? (vavg/vdur*100) : null;
+    var retEl=o('ret'); retEl.textContent = ret!=null? Math.round(ret)+'%' : '—';
+    retEl.classList.toggle('warn', ret!=null && ret<25);
+
+    var al=o('alerta'); al.classList.remove('on');
+    if(imp!=null && alc!=null && alc>imp){ al.textContent='O alcance ('+alc+') é maior que as impressões ('+imp+') — impossível. Confira os números.'; al.classList.add('on'); }
+    else if(imp!=null && imp>=80 && interacoes===0){ al.textContent='Alcançou '+imp+' impressões e zero engajamento — o post distribuiu mas não converteu. É um padrão a atacar.'; al.classList.add('on'); }
+
+    var preenchido = g('data').value||imp||alc||g('tema').value||g('texto').value;
+    card.classList.toggle('filled', !!preenchido);
+  }
+
+  function renumber(g){ container(g).querySelectorAll('.item').forEach(function(c,i){c.querySelector('.idx').textContent=(i+1)}); }
+
+  function addItem(g){
+    var tpl=document.getElementById('tpl-'+g);
+    var node=tpl.content.cloneNode(true), card=node.querySelector('.item');
+    card.querySelector('.iremove').addEventListener('click',function(){card.remove();renumber(g);refresh();save()});
+    card.querySelectorAll('input,select,textarea').forEach(function(el){
+      el.addEventListener('input',function(){ if(g==='posts') calcPost(card); markFilled(card,g); refresh(); scheduleSave(); });
+    });
+    container(g).appendChild(node); renumber(g);
+    return card;
+  }
+
+  function markFilled(card,g){
+    if(g==='posts') return; // posts handled by calcPost
+    var any=false; card.querySelectorAll('[data-f]').forEach(function(el){ if(el.value) any=true; });
+    card.classList.toggle('filled', any);
+  }
+
+  document.querySelectorAll('[data-add]').forEach(function(btn){
+    btn.addEventListener('click',function(){ addItem(btn.dataset.add); refresh(); save(); });
+  });
+
+  function refresh(){
+    var pc=container('posts').querySelectorAll('.item'), filled=0;
+    pc.forEach(function(c){ if(c.classList.contains('filled')) filled++; });
+    document.getElementById('ppost').textContent = filled+' de '+pc.length+' posts';
+
+    function has(k){var e=document.querySelector('[data-k='+k+']');return e&&e.value?1:0;}
+    function grpFilled(g){var n=0;container(g).querySelectorAll('.item').forEach(function(c){if(c.classList.contains('filled'))n++;});return n;}
+
+    var pObj=(has('objetivo_principal')+has('vitoria_3m'))/2;
+    var pPerf=(has('nome')+has('headline')+has('sobre'))/3;
+    var pExp=Math.min(grpFilled('experiencias'),1);
+    var pComp=(has('area_regulada')+has('politica_empregador'))/2;
+    var pPost=pc.length? filled/pc.length : 0;
+    var pct=Math.round((pObj*0.22+pPerf*0.26+pExp*0.16+pComp*0.14+pPost*0.22)*100);
+    document.getElementById('fill').style.width=pct+'%';
+    document.getElementById('plabel').textContent = pct<100? 'Preenchendo… '+pct+'%' : 'Tudo preenchido';
+  }
+
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    el.addEventListener('input',function(){
+      if(el.dataset.k==='seguidores') container('posts').querySelectorAll('.item').forEach(calcPost);
+      refresh(); scheduleSave();
+    });
+  });
+
+  function coletar(){
+    var out={
+      ferramenta:'Lastro · Coleta Baseline LinkedIn', plataforma:'LinkedIn',
+      coletado_em:new Date().toISOString(),
+      objetivo:{}, perfil:{}, prova_social:{}, compliance:{},
+      desempenho:{overview:{},posts:[]}
+    };
+    document.querySelectorAll('[data-k]').forEach(function(el){
+      if(!el.value) return;
+      var sec=el.dataset.sec||'perfil', k=el.dataset.k, v=el.value;
+      if(sec==='overview') out.desempenho.overview[k]=v;
+      else if(sec==='root') out[k]=v;
+      else { out[sec]=out[sec]||{}; out[sec][k]=v; }
+    });
+    document.querySelectorAll('[data-multi]').forEach(function(box){
+      var sec=box.dataset.sec||'perfil', k=box.dataset.multi, arr=[];
+      box.querySelectorAll('input:checked').forEach(function(i){arr.push(i.value)});
+      if(arr.length){ out[sec]=out[sec]||{}; out[sec][k]=arr; }
+    });
+    GROUPS.forEach(function(g){
+      var arr=[];
+      container(g).querySelectorAll('.item').forEach(function(card,i){
+        var o={n:i+1};
+        card.querySelectorAll('[data-f]').forEach(function(el){ if(el.value) o[el.dataset.f]=el.value; });
+        if(Object.keys(o).length>1) arr.push(o);
+      });
+      if(g==='posts') out.desempenho.posts=arr; else out[g]=arr;
+    });
+    return out;
+  }
+
+  // ===== Autosave (persiste no aparelho, restaura na próxima sessão) =====
+  var LSKEY='lastro_baseline_linkedin_v1', lsOK=false, saveT;
+  try{ localStorage.setItem('_lastro_t','1'); localStorage.removeItem('_lastro_t'); lsOK=true; }catch(e){ lsOK=false; }
+
+  function snapshot(){
+    var s={simple:{},multi:{},groups:{}};
+    document.querySelectorAll('[data-k]').forEach(function(el){ s.simple[el.dataset.k]=el.value; });
+    document.querySelectorAll('[data-multi]').forEach(function(box){
+      var arr=[]; box.querySelectorAll('input:checked').forEach(function(i){arr.push(i.value)}); s.multi[box.dataset.multi]=arr;
+    });
+    GROUPS.forEach(function(g){
+      var arr=[];
+      container(g).querySelectorAll('.item').forEach(function(card){
+        var o={}; card.querySelectorAll('[data-f]').forEach(function(el){ o[el.dataset.f]=el.value; }); arr.push(o);
+      });
+      s.groups[g]=arr;
+    });
+    return s;
+  }
+  function flagSaved(){ var t=document.getElementById('saved'); t.textContent='✓ salvo'; t.classList.add('on'); }
+  function save(){ if(!lsOK) return; try{ localStorage.setItem(LSKEY, JSON.stringify(snapshot())); flagSaved(); }catch(e){} }
+  function scheduleSave(){ clearTimeout(saveT); saveT=setTimeout(save, 400); }
+
+  function applySnapshot(s){
+    if(!s) return false;
+    if(s.simple) document.querySelectorAll('[data-k]').forEach(function(el){ if(s.simple[el.dataset.k]!=null) el.value=s.simple[el.dataset.k]; });
+    if(s.multi) document.querySelectorAll('[data-multi]').forEach(function(box){
+      var vals=s.multi[box.dataset.multi]||[];
+      box.querySelectorAll('.chip input').forEach(function(i){ var on=vals.indexOf(i.value)>=0; i.checked=on; i.closest('.chip').classList.toggle('on',on); });
+    });
+    GROUPS.forEach(function(g){
+      container(g).innerHTML='';
+      var arr=(s.groups&&s.groups[g])||[];
+      if(!arr.length){ addItem(g); return; }
+      arr.forEach(function(rec){
+        var card=addItem(g);
+        card.querySelectorAll('[data-f]').forEach(function(el){ if(rec[el.dataset.f]!=null) el.value=rec[el.dataset.f]; });
+        if(g==='posts') calcPost(card); else markFilled(card,g);
+      });
+    });
+    return true;
+  }
+
+  function restore(){
+    if(!lsOK) return false;
+    var raw; try{ raw=localStorage.getItem(LSKEY); }catch(e){ return false; }
+    if(!raw) return false;
+    var s; try{ s=JSON.parse(raw); }catch(e){ return false; }
+    return applySnapshot(s);
+  }
+
+  document.getElementById('down').addEventListener('click',function(){
+    try{
+      var blob=new Blob([JSON.stringify(coletar(),null,2)],{type:'application/json'});
+      var url=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=url; a.download='baseline_linkedin.json';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function(){URL.revokeObjectURL(url)},100);
+      toast('Baixado. Envie o arquivo baseline_linkedin.json');
+    }catch(e){ toast('Download bloqueado. Use "Copiar tudo".'); }
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var txt=JSON.stringify(coletar(),null,2);
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){toast('Copiado. Cole numa mensagem e envie.')},function(){fb(txt)}); } else fb(txt);
+  });
+  function fb(txt){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copiado. Cole numa mensagem e envie.')}catch(e){toast('Não foi possível copiar.')}document.body.removeChild(ta)}
+
+  // Limpar dados salvos (novo cliente no mesmo aparelho)
+  document.getElementById('clear').addEventListener('click',function(){
+    if(!confirm('Isto apaga tudo o que foi preenchido neste aparelho e recomeça do zero. Continuar?')) return;
+    try{ localStorage.removeItem(LSKEY); }catch(e){}
+    location.reload();
+  });
+
+  // beforeunload só como rede de segurança quando NÃO há como salvar
+  if(!lsOK){
+    window.addEventListener('beforeunload',function(e){
+      var c=coletar(); var tem=Object.keys(c.perfil).length||Object.keys(c.objetivo).length||c.desempenho.posts.length;
+      if(tem){e.preventDefault();e.returnValue=''}
+    });
+  }
+
+  // Início: 1) restaura sessão salva; 2) senão, usa prefill embutido (se houver); 3) senão, abre limpo
+  var fromLS=restore(), restaurado=fromLS;
+  if(!restaurado && window.__PREFILL__){ restaurado=applySnapshot(window.__PREFILL__); if(restaurado) save(); }
+  if(!restaurado){ GROUPS.forEach(function(g){ addItem(g); }); }
+  refresh();
+  if(fromLS) toast('Recuperamos os dados da sua última sessão neste aparelho.');
+  else if(restaurado) toast('Formulário pré-preenchido. Edite à vontade — salva sozinho.');
+})();
+</script>
+</body>
+</html>

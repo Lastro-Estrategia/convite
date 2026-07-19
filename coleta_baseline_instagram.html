@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lastro · Coleta de Baseline — Instagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#00CBCF; --verde-fundo:#01868D; --verde-veu:#E0F7F8;
+  --tinta:#10171A; --tinta-media:#4A5561; --tinta-clara:#8A94A0;
+  --papel:#F4F6F5; --card:#FFFFFF; --regua:#DCE0DA;
+  --ambar:#9A5B12; --ambar-veu:#FBF0E2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--papel);color:var(--tinta);font-family:'Inter',system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:104px}
+
+header{background:var(--tinta);color:#fff;padding:30px 24px 26px}
+.hwrap{max-width:920px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brand .mark{height:38px;width:auto;display:block;flex:none}
+.brand .word{font-family:'Inter';font-weight:600;font-size:19px;letter-spacing:4px}
+.slogan{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.slogan .s1{color:#fff}.slogan .div{color:var(--verde);margin:0 6px}.slogan .s2{color:var(--verde)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);margin-bottom:12px}
+h1{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:clamp(24px,4.5vw,34px);line-height:1.15;letter-spacing:-.02em;margin-bottom:12px}
+.lede{color:#C6CDD4;font-size:14.5px;max-width:64ch}
+.lede strong{color:#fff;font-weight:600}
+.hmeta{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6B7680;margin-top:16px;padding-top:14px;border-top:1px solid #2A3238;display:flex;gap:18px;flex-wrap:wrap}
+
+main{max-width:920px;margin:0 auto;padding:0 24px}
+section{margin-top:44px}
+.shead{display:flex;align-items:baseline;gap:14px;padding-bottom:11px;border-bottom:2px solid var(--tinta)}
+.snum{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:var(--verde-fundo)}
+.stitle{font-family:'Source Serif 4',serif;font-weight:600;font-size:20px;letter-spacing:-.01em}
+.snote{color:var(--tinta-media);font-size:13.5px;margin-top:12px;max-width:66ch}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.grid.tri{grid-template-columns:1fr 1fr 1fr}
+.f{background:var(--card);border:1px solid var(--regua);border-radius:3px;padding:12px 14px}
+.f:focus-within{border-color:var(--verde-fundo);box-shadow:0 0 0 3px var(--verde-veu)}
+.f.wide{grid-column:1/-1}
+.f label{display:block;font-size:12.5px;font-weight:600;color:var(--tinta);margin-bottom:2px}
+.f .sub{font-size:11px;color:var(--tinta-clara);margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;border:none;background:transparent;font-family:'Inter';font-size:15px;color:var(--tinta);outline:none;padding:2px 0}
+.f textarea{resize:vertical;min-height:70px;line-height:1.45}
+.f input::placeholder,.f textarea::placeholder{color:#C0C7CE}
+.f.num input{font-family:'JetBrains Mono',monospace}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238A94A0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center}
+
+.post{background:var(--card);border:1px solid var(--regua);border-radius:4px;margin-top:16px;overflow:hidden}
+.ptop{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#FAFBFA;border-bottom:1px solid var(--regua)}
+.pn{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:var(--tinta)}
+.pn .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--regua);margin-right:7px;vertical-align:middle}
+.post.filled .pn .dot{background:var(--verde)}
+.premove{margin-left:auto;font-family:'Inter';font-size:12px;color:var(--tinta-clara);background:none;border:1px solid var(--regua);border-radius:2px;padding:4px 9px;cursor:pointer}
+.premove:hover{border-color:var(--ambar);color:var(--ambar)}
+.pbody{padding:16px}
+.subh{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-clara);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--regua)}
+.subh:first-child{margin-top:0}
+.pgrid{display:grid;gap:10px}
+.pg2{grid-template-columns:1fr 1fr}
+.pg3{grid-template-columns:1fr 1fr 1fr}
+.pg4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+.leitura{margin-top:14px;padding:12px 14px;background:var(--tinta);border-radius:3px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.li{text-align:center}
+.li .lk{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#8A94A0;margin-bottom:3px}
+.li .lv{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--verde)}
+.li .lv.warn{color:#FFB454}
+.alerta{margin-top:10px;padding:8px 12px;background:var(--ambar-veu);border-left:3px solid var(--ambar);border-radius:2px;font-size:12px;color:#6B3F0A;display:none}
+.alerta.on{display:block}
+
+.addbtn{margin-top:16px;width:100%;padding:12px;background:transparent;border:1px dashed var(--regua);border-radius:3px;font-family:'Inter';font-size:13.5px;font-weight:600;color:var(--verde-fundo);cursor:pointer}
+.addbtn:hover{border-color:var(--verde-fundo);background:var(--verde-veu)}
+
+.bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--regua);padding:12px 24px;z-index:20;box-shadow:0 -1px 14px rgba(16,23,26,.06)}
+.barwrap{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.prog{flex:1;min-width:160px}
+.progtop{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tinta-clara);margin-bottom:5px}
+.track{height:3px;background:var(--regua);border-radius:2px;overflow:hidden}
+.fill{height:100%;width:0%;background:var(--verde);transition:width .3s ease}
+button.act{font-family:'Inter';font-weight:600;font-size:14px;padding:11px 18px;border-radius:2px;cursor:pointer;border:1px solid var(--tinta);background:var(--tinta);color:#fff}
+button.act:hover{background:#000}
+button.ghost{background:transparent;color:var(--tinta);border-color:var(--regua)}
+button.ghost:hover{border-color:var(--tinta)}
+.toast{position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--tinta);color:#fff;padding:11px 20px;border-radius:3px;font-size:14px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:30;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{max-width:920px;margin:48px auto 0;padding:22px 24px;border-top:1px solid var(--regua)}
+footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tinta-clara);line-height:1.9}
+
+@media(max-width:720px){
+  header{padding:24px 18px}
+  main{padding:0 16px}
+  .grid,.grid.tri{grid-template-columns:1fr}
+  .pg2,.pg3,.pg4{grid-template-columns:1fr 1fr}
+  .leitura{grid-template-columns:1fr 1fr}
+  .slogan{font-size:9px;letter-spacing:1px}
+  button.act{flex:1;padding:11px 10px;font-size:13px}
+  .ptop{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <img class="mark" alt="LASTRO" src="data:image/png;base64,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">
+      <div>
+        <div class="word">LASTRO</div>
+      </div>
+    </div>
+    <div class="eyebrow">Coleta de Baseline · Instagram</div>
+    <h1>Vamos ler o seu perfil de verdade</h1>
+    <p class="lede">Cada número aqui vem do seu <strong>painel de Insights</strong> — não da sua memória. Preencha o que o painel mostra e deixe em branco o que ele não mostrar: <strong>estimativa não é dado</strong>, e é dado que vira estratégia. No fim, você baixa o arquivo e decide quando enviar — nada sai daqui sozinho.</p>
+    <div class="hmeta"><span>3 partes</span><span>~15 min</span><span>Conta profissional obrigatória</span></div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="shead"><span class="snum">01</span><span class="stitle">Quem é você</span></div>
+  <p class="snote">Isto decide o que vamos investigar. Cinco respostas rápidas.</p>
+  <div class="grid tri">
+    <div class="f"><label>Seu nome</label><input data-k="nome" placeholder="Nome completo"></div>
+    <div class="f"><label>@ do perfil</label><input data-k="perfil" placeholder="@seuperfil"></div>
+    <div class="f"><label>Data de hoje</label><input data-k="data" type="date"></div>
+    <div class="f"><label>Sua área ou ofício</label><span class="sub">do jeito que você se apresenta</span><input data-k="area" placeholder="Ex.: educação física"></div>
+    <div class="f"><label>É área com conselho/registro?</label><select data-k="area_registro"><option value="">—</option><option>Sim</option><option>Não</option><option>Não sei</option></select></div>
+    <div class="f"><label>Você tem esse registro?</label><select data-k="tem_registro"><option value="">—</option><option>Sim</option><option>Não</option><option>Em formação</option></select></div>
+    <div class="f"><label>Lida com dado de terceiros?</label><span class="sub">de cliente, aluno, paciente, chefe</span><select data-k="dado_terceiro"><option value="">—</option><option>Sim</option><option>Não</option></select></div>
+    <div class="f"><label>Seu vínculo hoje</label><select data-k="vinculo"><option value="">—</option><option>Empregado</option><option>Autônomo</option><option>Dono</option></select></div>
+  </div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">02</span><span class="stitle">O perfil hoje</span></div>
+  <p class="snote">A foto geral da conta. Se a conta não for profissional, converta antes — é grátis, leva 2 minutos, e sem isso não aparecem salvamentos nem compartilhamentos.</p>
+  <div class="grid">
+    <div class="f"><label>Conta profissional? (Criador/Empresa)</label><select data-k="conta_pro"><option value="">—</option><option>Sim</option><option>Não</option></select></div>
+    <div class="f num"><label>Nº de seguidores</label><input data-k="seguidores" inputmode="numeric" placeholder="Ex.: 901"></div>
+    <div class="f num"><label>Nº total de posts</label><input data-k="posts_total" inputmode="numeric" placeholder="Ex.: 21"></div>
+    <div class="f num"><label>Visualizações (últimos 30 dias)</label><input data-k="v30" inputmode="numeric"></div>
+    <div class="f num"><label>Interações (30 dias)</label><input data-k="i30" inputmode="numeric"></div>
+    <div class="f num"><label>Novos seguidores (30 dias)</label><input data-k="ns30" inputmode="numeric"></div>
+    <div class="f num"><label>% mulheres no público</label><span class="sub">ex.: 67,6 → digite 67,6</span><input data-k="pct_mulher" inputmode="decimal"></div>
+    <div class="f num"><label>% homens no público</label><input data-k="pct_homem" inputmode="decimal"></div>
+    <div class="f"><label>Faixa etária dominante</label><input data-k="faixa" placeholder="Ex.: 25-34"></div>
+    <div class="f"><label>Cidade/região dominante</label><input data-k="regiao" placeholder="Ex.: São Paulo"></div>
+    <div class="f wide"><label>Sua bio</label><span class="sub">o texto do topo do perfil, do jeito que está</span><textarea data-k="bio" rows="3" placeholder="Cole aqui a sua bio, tal como aparece no perfil"></textarea></div>
+    <div class="f wide"><label>Nomes dos destaques</label><span class="sub">os títulos das bolinhas fixas, separados por vírgula</span><input data-k="destaques" placeholder="Ex.: Sobre, Resultados, Bastidores"></div>
+    <div class="f wide"><label>Títulos dos posts fixados</label><span class="sub">o tema/texto dos posts fixados no topo do grid</span><input data-k="fixados" placeholder="Ex.: Comece por aqui, Meu método"></div>
+  </div>
+</section>
+
+<section>
+  <div class="shead"><span class="snum">03</span><span class="stitle">Os últimos 10 posts</span></div>
+  <p class="snote">São os <strong>10 posts mais recentes</strong> que você publicou — conte de trás pra frente, a data não importa. Tanto faz se saíram nesta semana ou ao longo de meses: o que lemos é a sequência, porque é ela que mostra como o perfil performa <strong>hoje</strong>. Dez é o piso pra separar padrão de sorte — com dois ou três posts, qualquer resultado é ruído. Tem menos que isso? Traga o máximo que existir.<br>Um bloco por post, do mais recente para o mais antigo: abra os Insights de cada um e copie. A caixa escura embaixo calcula sozinha o que importa — e avisa se as fontes não fecham 100%.</p>
+  <div id="posts"></div>
+  <button class="addbtn" id="add" type="button">+ Adicionar outro post</button>
+</section>
+
+<footer>
+  <p>Ao terminar, toque em <strong>Baixar dados</strong> e envie o arquivo. Se o download não funcionar, use <strong>Copiar tudo</strong>.<br>
+  Nada é enviado automaticamente — o arquivo fica com você até decidir mandar.<br><br>
+  LASTRO · Estrutura que sustenta. Estratégia que escala.</p>
+</footer>
+
+</main>
+
+<div class="bar">
+  <div class="barwrap">
+    <div class="prog">
+      <div class="progtop"><span id="plabel">Preencha as 3 partes</span><span id="ppost">0 posts</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+    <button class="act ghost" id="copy" type="button">Copiar tudo</button>
+    <button class="act" id="down" type="button">Baixar dados</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<template id="tpl-post">
+<div class="post">
+  <div class="ptop"><span class="pn"><span class="dot"></span>POST <span class="idx"></span></span><button class="premove" type="button">Remover</button></div>
+  <div class="pbody">
+    <div class="subh">Identificação</div>
+    <div class="pgrid pg3">
+      <div class="f"><label>Data</label><input data-p="data" type="date"></div>
+      <div class="f"><label>Formato</label><select data-p="formato"><option value="">—</option><option>Reel</option><option>Carrossel</option><option>Foto</option></select></div>
+      <div class="f"><label>Tipo de mídia</label><select data-p="midia"><option value="">—</option><option>Vídeo real</option><option>Foto parada</option><option>Carrossel de imagens</option><option>Texto sobre imagem</option></select></div>
+    </div>
+    <div class="pgrid pg2" style="margin-top:10px">
+      <div class="f wide"><label>Tema (o assunto real, não "vídeo de treino")</label><input data-p="tema" placeholder="Ex.: agachamento — erro de joelho"></div>
+    </div>
+
+    <div class="subh">Distribuição</div>
+    <div class="pgrid pg4">
+      <div class="f num"><label>Visualizações</label><input data-p="views" inputmode="numeric"></div>
+      <div class="f num"><label>Contas alcançadas</label><span class="sub">não é visualização</span><input data-p="alcance" inputmode="numeric"></div>
+      <div class="f num"><label>Tempo médio (s)</label><input data-p="tmed" inputmode="numeric"></div>
+      <div class="f num"><label>Duração do vídeo (s)</label><input data-p="dur" inputmode="numeric"></div>
+    </div>
+
+    <div class="subh">De onde vieram as visualizações (%)</div>
+    <div class="pgrid pg3">
+      <div class="f num"><label>Perfil</label><input data-p="f_perfil" inputmode="decimal"></div>
+      <div class="f num"><label>Stories</label><input data-p="f_stories" inputmode="decimal"></div>
+      <div class="f num"><label>Feed</label><input data-p="f_feed" inputmode="decimal"></div>
+      <div class="f num"><label>Aba Reels</label><input data-p="f_reels" inputmode="decimal"></div>
+      <div class="f num"><label>Explorar</label><input data-p="f_explorar" inputmode="decimal"></div>
+      <div class="f num"><label>Pesquisa</label><input data-p="f_pesquisa" inputmode="decimal"></div>
+    </div>
+
+    <div class="subh">Interações</div>
+    <div class="pgrid pg4">
+      <div class="f num"><label>Curtidas</label><input data-p="curtidas" inputmode="numeric"></div>
+      <div class="f num"><label>Comentários</label><input data-p="coment" inputmode="numeric"></div>
+      <div class="f num"><label>Salvamentos</label><input data-p="salv" inputmode="numeric"></div>
+      <div class="f num"><label>Compartilh.</label><input data-p="compart" inputmode="numeric"></div>
+    </div>
+    <div class="pgrid pg3" style="margin-top:10px">
+      <div class="f num"><label>Reposts</label><input data-p="reposts" inputmode="numeric"></div>
+      <div class="f num"><label>Visitas ao perfil</label><input data-p="visitas" inputmode="numeric"></div>
+      <div class="f"><label>Post cruzado no Facebook?</label><select data-p="fb"><option value="">—</option><option>Sim</option><option>Não</option></select></div>
+    </div>
+
+    <div class="leitura">
+      <div class="li"><div class="lk">Descoberta</div><div class="lv" data-o="desc">—</div></div>
+      <div class="li"><div class="lk">Conversão</div><div class="lv" data-o="conv">—</div></div>
+      <div class="li"><div class="lk">Retenção</div><div class="lv" data-o="ret">—</div></div>
+      <div class="li"><div class="lk">Alcance ÷ seg.</div><div class="lv" data-o="alcseg">—</div></div>
+    </div>
+    <div class="alerta" data-o="alerta"></div>
+  </div>
+</div>
+</template>
+
+<script>
+(function(){
+  var postsEl=document.getElementById('posts'), tpl=document.getElementById('tpl-post');
+  var toastEl=document.getElementById('toast'), tt;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('show')},3400)}
+  function num(v){v=parseFloat((v||'').toString().replace(',','.'));return isNaN(v)?null:v}
+  function seguidores(){return num(document.querySelector('[data-k=seguidores]').value)}
+
+  function calcPost(card){
+    var g=function(k){return card.querySelector('[data-p='+k+']')};
+    var views=num(g('views').value), alc=num(g('alcance').value), tmed=num(g('tmed').value), dur=num(g('dur').value);
+    var feed=num(g('f_feed').value)||0, reels=num(g('f_reels').value)||0, exp=num(g('f_explorar').value)||0, pesq=num(g('f_pesquisa').value)||0;
+    var perfil=num(g('f_perfil').value)||0, stories=num(g('f_stories').value)||0;
+    var salv=num(g('salv').value)||0, compart=num(g('compart').value)||0, coment=num(g('coment').value)||0;
+    var seg=seguidores();
+    var o=function(k){return card.querySelector('[data-o='+k+']')};
+
+    var desc=feed+reels+exp+pesq;
+    o('desc').textContent = (feed||reels||exp||pesq)? desc.toFixed(1)+'%' : '—';
+
+    var conv = alc? ((coment+salv+compart)/alc*100) : null;
+    o('conv').textContent = conv!=null? conv.toFixed(2)+'%' : '—';
+
+    var ret = (tmed!=null&&dur)? (tmed/dur*100) : null;
+    var retEl=o('ret'); retEl.textContent = ret!=null? Math.round(ret)+'%' : '—';
+    retEl.classList.toggle('warn', ret!=null && ret<25);
+
+    var as = (alc!=null&&seg)? (alc/seg) : null;
+    var asEl=o('alcseg'); asEl.textContent = as!=null? as.toFixed(2)+'x' : '—';
+    asEl.classList.toggle('warn', as!=null && as<1);
+
+    var soma=perfil+stories+feed+reels+exp+pesq;
+    var al=o('alerta'); al.classList.remove('on');
+    var algumaFonte = perfil||stories||feed||reels||exp||pesq;
+    if(algumaFonte && soma>105){ al.textContent='As fontes somam '+soma.toFixed(0)+'% — passou de 100%. Confira os números.'; al.classList.add('on'); }
+    else if(views!=null && alc!=null && alc>0 && views/alc>3){ al.textContent='As visualizações são '+(views/alc).toFixed(1)+'× o alcance — provável loop de mídia parada. Confirme o tipo de mídia.'; al.classList.add('on'); }
+
+    var preenchido = g('data').value||views||alc;
+    card.classList.toggle('filled', !!preenchido);
+  }
+
+  function renumber(){ postsEl.querySelectorAll('.post').forEach(function(c,i){c.querySelector('.idx').textContent=(i+1)}); }
+
+  function addPost(){
+    var node=tpl.content.cloneNode(true), card=node.querySelector('.post');
+    card.querySelector('.premove').addEventListener('click',function(){card.remove();renumber();refresh()});
+    card.querySelectorAll('input,select').forEach(function(el){ el.addEventListener('input',function(){calcPost(card);refresh()}) });
+    postsEl.appendChild(node); renumber();
+  }
+
+  function refresh(){
+    var cards=postsEl.querySelectorAll('.post'), filled=0;
+    cards.forEach(function(c){ if(c.classList.contains('filled')) filled++; });
+    document.getElementById('ppost').textContent = filled+' de '+cards.length+' posts';
+    var p1=['nome','perfil','area','area_registro','tem_registro','dado_terceiro','vinculo'].filter(function(k){return document.querySelector('[data-k='+k+']').value}).length/7;
+    var p2=['conta_pro','seguidores','posts_total'].filter(function(k){return document.querySelector('[data-k='+k+']').value}).length/3;
+    var p3=cards.length? filled/cards.length : 0;
+    var pct=Math.round((p1*0.25+p2*0.25+p3*0.5)*100);
+    document.getElementById('fill').style.width=pct+'%';
+    document.getElementById('plabel').textContent = pct<100? 'Preenchendo… '+pct+'%' : 'Tudo preenchido';
+  }
+
+  function coletar(){
+    var perfil={};
+    document.querySelectorAll('[data-k]').forEach(function(el){ if(el.value) perfil[el.dataset.k]=el.value; });
+    var posts=[];
+    postsEl.querySelectorAll('.post').forEach(function(card,i){
+      var p={n:i+1};
+      card.querySelectorAll('[data-p]').forEach(function(el){ if(el.value) p[el.dataset.p]=el.value; });
+      if(Object.keys(p).length>1) posts.push(p);
+    });
+    return {ferramenta:'Lastro · Coleta Baseline Instagram',plataforma:'Instagram',coletado_em:new Date().toISOString(),perfil:perfil,posts:posts};
+  }
+
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    el.addEventListener('input',function(){
+      if(el.dataset.k==='seguidores') postsEl.querySelectorAll('.post').forEach(calcPost);
+      refresh();
+    });
+  });
+  document.getElementById('add').addEventListener('click',function(){addPost();refresh()});
+
+  document.getElementById('down').addEventListener('click',function(){
+    try{
+      var blob=new Blob([JSON.stringify(coletar(),null,2)],{type:'application/json'});
+      var url=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=url; a.download='baseline_instagram.json';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function(){URL.revokeObjectURL(url)},100);
+      toast('Baixado. Envie o arquivo baseline_instagram.json');
+    }catch(e){ toast('Download bloqueado. Use "Copiar tudo".'); }
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var txt=JSON.stringify(coletar(),null,2);
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){toast('Copiado. Cole numa mensagem e envie.')},function(){fb(txt)}); } else fb(txt);
+  });
+  function fb(txt){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copiado. Cole numa mensagem e envie.')}catch(e){toast('Não foi possível copiar.')}document.body.removeChild(ta)}
+
+  window.addEventListener('beforeunload',function(e){ var c=coletar(); if(Object.keys(c.perfil).length||c.posts.length){e.preventDefault();e.returnValue=''} });
+
+  addPost();
+  refresh();
+})();
+</script>
+</body>
+</html>
