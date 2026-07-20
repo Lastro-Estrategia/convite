@@ -22,6 +22,7 @@
     .gbtn{ transition: background-color .15s ease, color .15s ease; }
     .gbtn:hover{ background-color:#00CBCF !important; color:#0B1013 !important; }
   </style>
+  <noscript><style>#loader{display:none!important}#cardMain{display:table!important}#footerMain{display:table!important}</style></noscript>
 </head>
 <body style="margin:0; padding:0; background-color:#0B1013;">
 
@@ -29,7 +30,9 @@
     <tr>
       <td align="center" style="padding:40px 16px;">
 
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#10171A;">
+        <div id="loader" style="font-family:'JetBrains Mono','Courier New',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#8A94A0; padding:70px 0;">Verificando convite&hellip;</div>
+
+        <table id="cardMain" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="display:none; width:600px; max-width:600px; background-color:#10171A;">
 
           <tr><td style="height:3px; line-height:3px; font-size:0; background-color:#00CBCF;">&nbsp;</td></tr>
 
@@ -157,7 +160,25 @@
           <tr><td style="height:3px; line-height:3px; font-size:0; background-color:#00CBCF;">&nbsp;</td></tr>
         </table>
 
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px;">
+        <!-- card: convite ja utilizado (some por padrao; o JS mostra se preciso) -->
+        <table id="cardUsado" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="display:none; width:600px; max-width:600px; background-color:#10171A;">
+          <tr><td style="height:3px; line-height:3px; font-size:0; background-color:#00CBCF;">&nbsp;</td></tr>
+          <tr><td align="center" style="padding:56px 48px 8px 48px;">
+            <div style="font-family:'Inter',Arial,Helvetica,sans-serif; font-size:19px; font-weight:700; letter-spacing:5px; color:#EAF0F1;">LASTRO</div>
+          </td></tr>
+          <tr><td align="center" style="padding:22px 48px 0 48px;">
+            <span style="font-family:'JetBrains Mono','Courier New',monospace; font-size:11px; letter-spacing:2.6px; text-transform:uppercase; color:#00CBCF;">Turma Fundadora</span>
+          </td></tr>
+          <tr><td align="center" style="padding:12px 44px 0 44px;">
+            <h1 style="margin:0; font-family:'Source Serif 4',Georgia,'Times New Roman',serif; font-size:29px; line-height:1.25; font-weight:600; color:#F4F6F5;">Este convite j&aacute; foi utilizado.</h1>
+          </td></tr>
+          <tr><td align="center" style="padding:18px 52px 56px 52px;">
+            <p style="margin:0; font-family:'Inter',Arial,Helvetica,sans-serif; font-size:15px; line-height:1.7; color:#8A94A0;">Cada convite da Turma Fundadora vale por uma ativa&ccedil;&atilde;o. Se acha que houve um engano, fale com a gente em <a href="mailto:lastro.estrategia@gmail.com" style="color:#00CBCF; text-decoration:none;">lastro.estrategia@gmail.com</a>.</p>
+          </td></tr>
+          <tr><td style="height:3px; line-height:3px; font-size:0; background-color:#00CBCF;">&nbsp;</td></tr>
+        </table>
+
+        <table id="footerMain" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="display:none; width:600px; max-width:600px;">
           <tr>
             <td align="center" style="padding:22px 24px 0 24px;">
               <p style="margin:0; font-family:'Inter',Arial,Helvetica,sans-serif; font-size:11px; line-height:1.6; color:#5A6570;">
@@ -176,6 +197,7 @@
   (function(){
     /* ================= EDITE UMA VEZ ================= */
     var CONFIG = {
+      API: "https://script.google.com/macros/s/AKfycbyOTXceIdNxEOMfg3_wAfb6UPF30IGuc9yoeTuH4OP_CoyqbTiKhfz08t9A23Bhx7uSAg/exec",
       BASELINE_LI: "https://lastro-estrategia.github.io/convite/coleta_baseline_linkedin.html",
       BASELINE_IG: "https://lastro-estrategia.github.io/convite/coleta_baseline_instagram.html",
       EMAIL: "lastro.estrategia@gmail.com"
@@ -216,24 +238,76 @@
       if(fl){ fl.style.display = 'block'; }
     }
 
+    var em = document.getElementById('email');
+    if(em && CONFIG.EMAIL){ em.textContent = CONFIG.EMAIL; em.setAttribute('href','mailto:'+CONFIG.EMAIL); }
+
+    // codigo final (mesmo criterio do selo)
+    var codigoFinal = codigo || ((nome && fund) ? (nome + "-FUND-" + fund) : "");
+
+    // JSONP: conversa com a planilha sem esbarrar em CORS
+    function jsonp(url, cb){
+      var s = document.createElement('script');
+      var nm = '__cb' + Math.floor(Math.random()*1e9);
+      var done = false;
+      function limpa(){ try{ delete window[nm]; }catch(e){ window[nm] = undefined; } if(s && s.parentNode){ s.parentNode.removeChild(s); } }
+      window[nm] = function(data){ done = true; limpa(); cb(null, data); };
+      s.onerror = function(){ if(done) return; limpa(); cb(new Error('rede')); };
+      s.src = url + (url.indexOf('?') < 0 ? '?' : '&') + 'callback=' + nm;
+      document.body.appendChild(s);
+    }
+
+    // plataforma pedida no link (p=li / p=ig)
     var plat = clean(qp('p')).toLowerCase();
+    var platN = (plat==='ig'||plat==='instagram') ? 'ig' : ((plat==='li'||plat==='linkedin') ? 'li' : '');
     var single = document.getElementById('ctaSingle');
     var dual = document.getElementById('ctaDual');
-    var cta = document.getElementById('cta');
-    var btnLi = document.getElementById('ctaLi');
-    var btnIg = document.getElementById('ctaIg');
-    if(btnLi){ btnLi.setAttribute('href', CONFIG.BASELINE_LI); }
-    if(btnIg){ btnIg.setAttribute('href', CONFIG.BASELINE_IG); }
-    if(plat === 'li' || plat === 'linkedin'){
-      if(cta){ cta.setAttribute('href', CONFIG.BASELINE_LI); }
-    } else if(plat === 'ig' || plat === 'instagram'){
-      if(cta){ cta.setAttribute('href', CONFIG.BASELINE_IG); }
+
+    function baseDe(pl){ return pl==='ig' ? CONFIG.BASELINE_IG : CONFIG.BASELINE_LI; }
+    function destino(base){
+      return base + '?n=' + encodeURIComponent(nome) + '&f=' + encodeURIComponent(fund) + '&c=' + encodeURIComponent(codigoFinal);
+    }
+    // ao ATIVAR: marca o numero como usado e so entao segue pro baseline
+    function ativar(base, pl){
+      var url = destino(base);
+      if(!fund || !CONFIG.API){ window.location.href = url; return; }
+      var foi = false;
+      function ir(){ if(foi) return; foi = true; window.location.href = url; }
+      jsonp(CONFIG.API + '?action=marcar&numero=' + encodeURIComponent(fund) + '&nome=' + encodeURIComponent(nome) + '&codigo=' + encodeURIComponent(codigoFinal) + '&plat=' + encodeURIComponent(pl), function(){ ir(); });
+      setTimeout(ir, 2500); // se demorar, segue mesmo assim
+    }
+
+    if(platN){
+      var cta = document.getElementById('cta');
+      if(cta){ cta.setAttribute('href', baseDe(platN)); cta.addEventListener('click', function(ev){ ev.preventDefault(); ativar(baseDe(platN), platN); }); }
     } else {
       if(single){ single.style.display = 'none'; }
       if(dual){ dual.style.display = 'block'; }
+      var btnLi = document.getElementById('ctaLi');
+      var btnIg = document.getElementById('ctaIg');
+      if(btnLi){ btnLi.setAttribute('href', CONFIG.BASELINE_LI); btnLi.addEventListener('click', function(ev){ ev.preventDefault(); ativar(CONFIG.BASELINE_LI, 'li'); }); }
+      if(btnIg){ btnIg.setAttribute('href', CONFIG.BASELINE_IG); btnIg.addEventListener('click', function(ev){ ev.preventDefault(); ativar(CONFIG.BASELINE_IG, 'ig'); }); }
     }
-    var em = document.getElementById('email');
-    if(em && CONFIG.EMAIL){ em.textContent = CONFIG.EMAIL; em.setAttribute('href','mailto:'+CONFIG.EMAIL); }
+
+    // USO UNICO: ao abrir, checa se o numero ja foi usado
+    var decidido = false;
+    var loader = document.getElementById('loader');
+    var cardMain = document.getElementById('cardMain');
+    var cardUsado = document.getElementById('cardUsado');
+    var footerMain = document.getElementById('footerMain');
+    function mostrar(x){ if(x){ x.style.display = ''; } }
+    function esconder(x){ if(x){ x.style.display = 'none'; } }
+    function verConvite(){ if(decidido) return; decidido = true; esconder(loader); mostrar(cardMain); mostrar(footerMain); }
+    function verUsado(){ if(decidido) return; decidido = true; esconder(loader); mostrar(cardUsado); }
+
+    if(fund && CONFIG.API){
+      jsonp(CONFIG.API + '?action=checar&numero=' + encodeURIComponent(fund), function(err, data){
+        if(!err && data && data.ok && data.status === 'usado'){ verUsado(); }
+        else { verConvite(); }
+      });
+      setTimeout(verConvite, 4500); // rede falhou? libera, para nao travar ninguem
+    } else {
+      verConvite();
+    }
   })();
   </script>
 
